@@ -1106,4 +1106,18 @@ public class DefaultSteps {
         text.append("')]");
         return text.toString();
     }
+    
+        /**
+     * Проверка того, что элемент исчезнет со страницы (станет невидимым) в течение заданого времени.
+     *
+     * @param elementName                   - элемент который станет невидим
+     * @param waitingAppearTimeoutInSeconds - кооличество секунд, через которое произойдет ошибка,
+     *                                      если элемент не исчезнет
+     */
+    @Тогда("^ожидаем исчезновение элемента \"([^\"]*)\", через (\\d+) секунд$")
+    public void elemWaiteDisapperedHowManyDoYouWantSeconds(String elementName, int waitingAppearTimeoutInSeconds) {
+        int millisSeconds = (int) TimeUnit.SECONDS.toMillis(waitingAppearTimeoutInSeconds);
+        akitaScenario.getCurrentPage().waitElementsUntil(
+                Condition.disappears, millisSeconds, akitaScenario.getCurrentPage().getElement(elementName));
+    }
 }
